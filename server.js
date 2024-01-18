@@ -3,7 +3,7 @@ const connectDatabase = require("./config/database");
 const autoAgeUp = require("./config/updateAgeAuto");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
-const cors = require("cors");
+
 
 dotenv.config({ path: "config/.env" });
 connectDatabase();
@@ -15,12 +15,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-app.use(
-  cors({
-    origin: "https://aquaticdragon.onrender.com",
-    credentials: true,
-  })
-);
 
 app.listen(process.env.PORT, () => {
   console.log(
