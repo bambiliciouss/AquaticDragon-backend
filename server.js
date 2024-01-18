@@ -1,22 +1,29 @@
-const app = require('./app');
-const connectDatabase = require('./config/database')
-const autoAgeUp =require ('./config/updateAgeAuto')
-const dotenv = require('dotenv');
+const app = require("./app");
+const connectDatabase = require("./config/database");
+const autoAgeUp = require("./config/updateAgeAuto");
+const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
+const cors = require("cors");
 
-dotenv.config({path: 'config/.env'})
+dotenv.config({ path: "config/.env" });
 connectDatabase();
-autoAgeUp()
+autoAgeUp();
 
 cloudinary.config({
-	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-	api_key: process.env.CLOUDINARY_API_KEY,
-	api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
+app.use(
+  cors({
+    origin: "https://aquaticdragon.onrender.com",
+    credentials: true,
+  })
+);
 
 app.listen(process.env.PORT, () => {
-
-	console.log(`server started on port:' ${process.env.PORT} in ${process.env.NODE_ENV} mode`);
-
+  console.log(
+    `server started on port:' ${process.env.PORT} in ${process.env.NODE_ENV} mode`
+  );
 });
